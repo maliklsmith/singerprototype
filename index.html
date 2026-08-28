@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singer Financial Corp. | Private Direct Portfolio Lender</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style> 
+
+    /* make the things! */
+.large-avatar {
+  width: 160px;
+  height: 160px;
+  clip-path: circle(76px);
+  border-style: solid;
+  border-width: 4px;
+  background: #454545;
+  border-color: #454545;
+  margin: 0 auto;
+}
+.large-avatar img {
+  clip-path: circle(72px);
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.small-avatar {
+  width: 80px;
+  height: 80px;
+  clip-path: circle(38px);
+  border-style: solid;
+  border-width: 2px;
+  background: #454545;
+  border-color: #454545;
+}
+.small-avatar img {
+  clip-path: circle(36px);
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.tiny-avatar {
+  width: 42px;
+  height: 42px;
+  clip-path: circle(20px);
+  border-style: solid;
+  border-width: 1px;
+  background: #454545;
+  border-color: #454545;
+}
+.tiny-avatar img {
+  clip-path: circle(19px);
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.large-avatar-fallback {
+  width: 160px;
+  height: 160px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: #454545;
+}
+.large-avatar-fallback img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.small-avatar-fallback {
+  width: 80px;
+  height: 80px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #454545;
+}
+.small-avatar-fallback img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.tiny-avatar-fallback {
+  width: 42px;
+  height: 42px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #454545;
+}
+.tiny-avatar-fallback img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: system-ui;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto) 1fr;
+  grid-gap: 1em;
+}
+
+h1,
+h2,
+.image-credit {
+  grid-column: 1/4;
+}
+
+
+.philly {
+
+    background: no-repeat url('philly-skyline-a.jpg');
+    background-size: cover; 
+
+}
+
+</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f4f6f8',
+                            100: '#e5eaf0',
+                            800: '#1a2836',
+                            900: '#0f1720',
+                            accent: '#c5a059',
+                            accentHover: '#b08d4b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-50 text-brand-900 antialiased selection:bg-brand-accent selection:text-white" x-data="{ currentTab: 'home' }">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-brand-900/95 backdrop-blur-md border-b border-white/10 text-white" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" @click.prevent="currentTab = 'home'" class="font-serif text-xl tracking-wide font-semibold text-white">
+                SINGER <span class="text-brand-accent font-sans font-light tracking-widest text-sm uppercase block">Financial Corp.</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-white/80">
+                <a href="#" @click.prevent="currentTab = 'home'" :class="currentTab === 'home' ? 'text-brand-accent' : 'hover:text-brand-accent transition-colors'">Home</a>
+                <a href="#" @click.prevent="currentTab = 'loans'" :class="currentTab === 'loans' ? 'text-brand-accent' : 'hover:text-brand-accent transition-colors'">Loan Options</a>
+                <a href="#" @click.prevent="currentTab = 'about'" :class="currentTab === 'about' ? 'text-brand-accent' : 'hover:text-brand-accent transition-colors'">About</a>
+                <a href="#" class="hover:text-brand-accent transition-colors">Properties</a>
+                <a href="#" class="hover:text-brand-accent transition-colors">Contact</a>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="tel:2158939722" class="text-xs tracking-wider uppercase font-semibold text-brand-accent border border-brand-accent/30 px-4 py-2.5 rounded hover:bg-brand-accent hover:text-brand-900 transition-all">
+                  (215) 893-9722
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="mobileMenuOpen" class="md:hidden bg-brand-900 border-b border-white/10 px-6 py-4 space-y-3">
+            <a href="#" @click.prevent="currentTab = 'home'; mobileMenuOpen = false" class="block text-white/80 py-1">Home</a>
+            <a href="#" @click.prevent="currentTab = 'loans'; mobileMenuOpen = false" class="block text-white/80 py-1">Loan Options</a>
+            <a href="#" @click.prevent="currentTab = 'about'; mobileMenuOpen = false" class="block text-white/80 py-1">About</a>
+            <a href="#" class="block text-white/80 py-1">Contact</a>
+            <div class="pt-2">
+                <a href="tel:2158939722" class="block text-center text-xs font-semibold text-brand-accent border border-brand-accent/30 py-2.5 rounded">
+                    Call (215) 893-9722
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HOME TAB ==================== -->
+    <div x-show="currentTab === 'home'" x-cloak>
+        <!-- Hero Section -->
+        <section class="bg-brand-900 philly text-white py-20 lg:py-28 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#c5a059_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="max-w-3xl">
+                    <span class="text-brand-accent text-xs uppercase tracking-widest font-semibold mb-4 block">Private Direct Portfolio Lender</span>
+                    <h1 class="font-serif text-4xl lg:text-6xl font-bold tracking-tight mb-6">Creative Real Estate Financing in PA, NJ, & DE</h1>
+                    <p class="text-lg text-white/70 font-normal leading-relaxed mb-10">
+                        At Singer Financial Corp., we fund directly from our own pool of capital. No nameless investors, no conventional banking red tape—just direct commercial real estate loans built for business owners and investors.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                        <a href="#" @click.prevent="currentTab = 'loans'" class="bg-brand-accent text-brand-900 font-semibold px-8 py-3.5 rounded text-center hover:bg-brand-accentHover transition-colors">
+                            Explore Loan Options
+                        </a>
+                        <a href="#" @click.prevent="currentTab = 'about'" class="border border-white/20 text-white font-semibold px-8 py-3.5 rounded text-center hover:bg-white/5 transition-colors">
+                            About Our Firm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics Bar -->
+        <section class="bg-brand-800 text-white border-y border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/10">
+                    <div class="flex flex-col justify-center px-4">
+                        <span class="text-xs uppercase tracking-wider text-brand-accent font-semibold mb-1">Projects Funded</span>
+                        <span class="font-serif text-3xl font-bold">&gt;250</span>
+                    </div>
+                    <div class="flex flex-col justify-center px-4 pt-4 md:pt-0">
+                        <span class="text-xs uppercase tracking-wider text-brand-accent font-semibold mb-1">Amount Financed</span>
+                        <span class="font-serif text-3xl font-bold">$100M+</span>
+                    </div>
+                    <div class="flex flex-col justify-center px-4 pt-4 md:pt-0">
+                        <span class="text-xs uppercase tracking-wider text-brand-accent font-semibold mb-1">Max Loan Amount</span>
+                        <span class="font-serif text-3xl font-bold">Up to $1,000,000</span>
+                    </div>
+                    <div class="flex flex-col justify-center px-4 pt-4 md:pt-0">
+                        <span class="text-xs uppercase tracking-wider text-brand-accent font-semibold mb-1">Starting Rates</span>
+                        <span class="font-serif text-3xl font-bold">From 10%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="py-20 lg:py-28 max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-brand-accent text-xs uppercase tracking-widest font-semibold mb-2 block">The Direct Advantage</span>
+                <h2 class="font-serif text-3xl lg:text-4xl font-bold mb-4">Why Partner With Singer Financial?</h2>
+                <p class="text-brand-900/70">When conventional avenues fall short, we deliver agility, customized underwriting, and immediate capital.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-8 rounded-xl border border-brand-100 shadow-sm">
+                    <div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center text-brand-accent mb-4 font-bold font-serif text-lg">01</div>
+                    <h3 class="font-serif text-xl font-bold mb-2">Bank Declines</h3>
+                    <p class="text-brand-900/70 text-sm leading-relaxed">Conventional banks have rigid criteria. We look past current metrics to evaluate the true potential of your real estate asset.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-brand-100 shadow-sm">
+                    <div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center text-brand-accent mb-4 font-bold font-serif text-lg">02</div>
+                    <h3 class="font-serif text-xl font-bold mb-2">Speed & Agility</h3>
+                    <p class="text-brand-900/70 text-sm leading-relaxed">Skip the cumbersome bureaucracy. Our streamlined direct portfolio decisions ensure rapid closing timelines.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-brand-100 shadow-sm">
+                    <div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center text-brand-accent mb-4 font-bold font-serif text-lg">03</div>
+                    <h3 class="font-serif text-xl font-bold mb-2">Time-Sensitive</h3>
+                    <p class="text-brand-900/70 text-sm leading-relaxed">Whether seizing an urgent acquisition opportunity or resolving a default, we provide immediate capital when it matters most.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-brand-100 shadow-sm">
+                    <div class="w-10 h-10 bg-brand-50 rounded-lg flex items-center justify-center text-brand-accent mb-4 font-bold font-serif text-lg">04</div>
+                    <h3 class="font-serif text-xl font-bold mb-2">Direct Capital</h3>
+                    <p class="text-brand-900/70 text-sm leading-relaxed">We utilize our own pool of capital, eliminating third-party intermediaries and layer upon layer of committee approval.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== LOAN OPTIONS TAB ==================== -->
+    <div x-show="currentTab === 'loans'" x-cloak>
+        <section class="bg-brand-900 text-white py-16 lg:py-20 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                <span class="text-brand-accent text-xs uppercase tracking-widest font-semibold mb-3 block">Private Business Loans</span>
+                <h1 class="font-serif text-3xl lg:text-5xl font-bold mb-4">Commercial Loan Options</h1>
+                <p class="text-white/70 max-w-2xl text-base">Flexible structures tailored to commercial real estate secured needs across Pennsylvania, New Jersey, and Delaware.</p>
+            </div>
+        </section>
+
+        <section class="py-20 max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- CRE Mortgages -->
+                <div class="bg-white p-8 lg:p-10 rounded-xl border border-brand-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold mb-3">CRE Mortgages</h3>
+                        <p class="text-brand-900/70 text-sm leading-relaxed mb-6">Designed for speed and structural flexibility for commercial property acquisitions and refinances.</p>
+                    </div>
+                    <ul class="space-y-3 pt-4 border-t border-brand-100 text-sm font-medium text-brand-800">
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Flexible Terms & Fast Closing</li>
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>No Pre-Payment Penalties</li>
+                    </ul>
+                </div>
+                <!-- Buy - Sell Lease Back -->
+                <div class="bg-white p-8 lg:p-10 rounded-xl border border-brand-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold mb-3">Buy - Sell Lease Back</h3>
+                        <p class="text-brand-900/70 text-sm leading-relaxed mb-6">Facing foreclosure, default, or tax liens? We buy your property and lease it back with clear re-purchase options.</p>
+                    </div>
+                    <ul class="space-y-3 pt-4 border-t border-brand-100 text-sm font-medium text-brand-800">
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Foreclosure & Default Relief</li>
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Built-in Re-Purchase Options</li>
+                    </ul>
+                </div>
+                <!-- Construction Loans -->
+                <div class="bg-white p-8 lg:p-10 rounded-xl border border-brand-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold mb-3">Construction Loans</h3>
+                        <p class="text-brand-900/70 text-sm leading-relaxed mb-6">Accelerate your development pipeline with dependable funding approved against current property valuations.</p>
+                    </div>
+                    <ul class="space-y-3 pt-4 border-t border-brand-100 text-sm font-medium text-brand-800">
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Approvals up to 70% of Current Value</li>
+                    </ul>
+                </div>
+                <!-- Customizable Loans -->
+                <div class="bg-white p-8 lg:p-10 rounded-xl border border-brand-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold mb-3">Customizable Loans</h3>
+                        <p class="text-brand-900/70 text-sm leading-relaxed mb-6">Our direct portfolio lending style lets us structure bespoke terms matching your exact personal or corporate scenario.</p>
+                    </div>
+                    <ul class="space-y-3 pt-4 border-t border-brand-100 text-sm font-medium text-brand-800">
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Situation-Specific Structuring</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== ABOUT TAB ==================== -->
+    <div x-show="currentTab === 'about'" x-cloak>
+        <section class="bg-brand-900 text-white py-16 lg:py-20 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                <span class="text-brand-accent text-xs uppercase tracking-widest font-semibold mb-3 block">Trusted Private Lender Since 1990</span>
+                <h1 class="font-serif text-3xl lg:text-5xl font-bold mb-4">About Singer Financial Corp.</h1>
+                <p class="text-white/70 max-w-2xl text-base">Unlocking opportunities with private credit solutions throughout the Greater Philadelphia area, PA, NJ, and DE.</p>
+            </div>
+        </section>
+
+        <!-- Firm Overview -->
+        <section class="py-20 max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+                <div>
+                    <h2 class="font-serif text-3xl font-bold mb-6">A Trusted Ally in Commercial Real Estate</h2>
+                    <p class="text-brand-900/70 leading-relaxed mb-4">
+                        Navigating real estate financing in Pennsylvania, New Jersey, and Delaware demands a partner who understands the local landscape and possesses immediate resources to act swiftly.
+                    </p>
+                    <p class="text-brand-900/70 leading-relaxed">
+                        Founded on principles of direct funding, speed, agility, and a zero-pressure approach, we empower business owners and real estate investors with flexible credit solutions tailored to unique circumstances.
+                    </p>
+                </div>
+                <div class="bg-brand-800 text-white p-8 lg:p-10 rounded-2xl">
+                    <h3 class="font-serif text-xl font-bold text-brand-accent mb-4">Core Principles</h3>
+                    <ul class="space-y-4 text-sm text-white/80">
+                        <li class="flex items-start"><span class="text-brand-accent font-bold mr-2">✓</span> <strong>Direct Funding:</strong> No shuffling to anonymous investors.</li>
+                        <li class="flex items-start"><span class="text-brand-accent font-bold mr-2">✓</span> <strong>Speed & Agility:</strong> Rapid underwriting and fast closings.</li>
+                        <li class="flex items-start"><span class="text-brand-accent font-bold mr-2">✓</span> <strong>Flexible Solutions:</strong> Personalized assessments for non-traditional situations.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leadership Team -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="font-serif text-3xl font-bold mb-4">Leadership & Management</h2>
+                <p class="text-brand-900/70">Experienced professionals dedicated to reliable underwriting, asset management, and responsive client service.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Paul Singer -->
+                   <div class="bg-white p-8 rounded-xl border border-brand-100 shadow-sm text-center">
+                 
+            <div class="large-avatar">
+    <img src="paul-headshot.png" alt="large example">
+  </div>
+                    <h3 class="font-serif text-xl font-bold">Paul Singer</h3>
+                    <p class="text-brand-accent text-xs uppercase tracking-wider font-semibold mb-4">President & Founder</p>
+                    <p class="text-brand-900/70 text-sm leading-relaxed mb-4">
+                        Serving as President, CEO, CFO, and Secretary since forming Singer Financial Corp. in 1992. Experienced across private finance, loan brokerage, and debt collection management.
+                    </p>
+                    <a href="mailto:paul@singerfinancial.com" class="text-xs text-brand-accent font-semibold hover:underline">paul@singerfinancial.com</a>
+                </div>
+
+                <!-- Christopher Meade -->
+                <div class="bg-white p-8 rounded-xl border border-brand-100 shadow-sm text-center">
+                   
+
+            <div class="large-avatar">
+    <img src="christopher-headshot.png" alt="large example">
+  </div>
+           
+
+
+                    <h3 class="font-serif text-xl font-bold">Christopher Meade</h3>
+                    <p class="text-brand-accent text-xs uppercase tracking-wider font-semibold mb-4">Operations Manager</p>
+                    <p class="text-brand-900/70 text-sm leading-relaxed mb-4">
+                        With the firm since 2021, managing loan underwriting, servicing, and REO property management. Finance student at Temple University's Fox School of Business.
+                    </p>
+                    <a href="mailto:Chris@singerfinancial.com" class="text-xs text-brand-accent font-semibold hover:underline">Chris@singerfinancial.com</a>
+                </div>
+
+                <!-- Aiden Nakas -->
+                <div class="bg-white p-8 rounded-xl border border-brand-100 shadow-sm text-center">
+                 
+
+            <div class="large-avatar">
+    <img src="aiden-headshot.png" alt="large example">
+  </div>
+           
+
+                    <h3 class="font-serif text-xl font-bold">Aiden Nakas</h3>
+                    <p class="text-brand-accent text-xs uppercase tracking-wider font-semibold mb-4">Marketing Director</p>
+                    <p class="text-brand-900/70 text-sm leading-relaxed mb-4">
+                        Directs property and loan program marketing across the Philadelphia area. Computer science student with a minor in finance.
+                    </p>
+                    <a href="mailto:Aiden@SingerFinancial.com" class="text-xs text-brand-accent font-semibold hover:underline">Aiden@SingerFinancial.com</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brand-900 text-white border-t border-white/10 py-16">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+                <h4 class="font-serif text-lg font-bold mb-4">Singer Financial Corp.</h4>
+                <p class="text-white/60 text-sm leading-relaxed mb-4">Private direct portfolio lender specializing in real estate secured commercial and business loans in PA, NJ, and DE.</p>
+                <p class="text-xs text-brand-accent uppercase tracking-wider font-semibold">Hours: Mon – Fri | 9am – 5pm</p>
+            </div>
+            <div>
+                <h4 class="font-serif text-lg font-bold mb-4">Contact Info</h4>
+                <p class="text-white/60 text-sm mb-2">1708 Locust St.</p>
+                <p class="text-white/60 text-sm mb-4">Philadelphia, PA 19103</p>
+                <p class="text-white/80 text-sm mb-1"><strong>Phone:</strong> <a href="tel:2158939722" class="hover:text-brand-accent">(215) 893-9722</a></p>
+                <p class="text-white/80 text-sm"><strong>Email:</strong> <a href="mailto:paul@singerfinancial.com" class="hover:text-brand-accent">paul@singerfinancial.com</a></p>
+            </div>
+            <div>
+                <h4 class="font-serif text-lg font-bold mb-4">Quick Navigation</h4>
+                <ul class="space-y-2 text-sm text-white/70">
+                    <li><a href="#" @click.prevent="currentTab = 'home'" class="hover:text-brand-accent transition-colors">Home</a></li>
+                    <li><a href="#" @click.prevent="currentTab = 'loans'" class="hover:text-brand-accent transition-colors">Loan Options</a></li>
+                    <li><a href="#" @click.prevent="currentTab = 'about'" class="hover:text-brand-accent transition-colors">About Firm</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/10 text-center text-xs text-white/40">
+            &copy; 2026 Singer Financial Corp. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
